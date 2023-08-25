@@ -4,10 +4,9 @@
 
 #define EPS 1e-6
 
-
 namespace fig {
 
-enum class Type {kCircle, kEllipse, kHelix};
+enum class Type { kCircle, kEllipse, kHelix };
 //****************************************************************************
 //****************************************************************************
 struct Point {
@@ -57,10 +56,6 @@ public:
 class Circle : public Ellipse {
 public:
   Circle(float rad) : Ellipse(rad, rad) {}
-  Point GetPoint(float angle) const { return Ellipse::GetPoint(angle); }
-  Point GetVectorPoint(float angle) const {
-    return Ellipse::GetVectorPoint(angle);
-  }
   bool operator<(const Circle &other) {
     return (x_semiaxis_ < other.x_semiaxis_);
   }
@@ -76,6 +71,12 @@ public:
   }
   bool operator>=(const Circle &other) {
     return (*this == other || *this > other);
+  }
+
+  inline float GetRadius() { return x_semiaxis_; }
+  Point GetPoint(float angle) const { return Ellipse::GetPoint(angle); }
+  Point GetVectorPoint(float angle) const {
+    return Ellipse::GetVectorPoint(angle);
   }
 };
 

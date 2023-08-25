@@ -2,11 +2,47 @@
 #include <functional>
 #include <iostream>
 #include <memory>
+#include <mutex>
 #include <random>
-#include <vector>
 #include <thread>
+#include <vector>
 
 #include "lib/curves.h"
+
+std::recursive_mutex muteX;
+
+#define NUM_OF_THREADS 1
+
+#ifdef threads_2
+#define NUM_OF_THREADS 2
+#endif
+
+#ifdef threads_3
+#define NUM_OF_THREADS 3
+#endif
+
+#ifdef threads_4
+#define NUM_OF_THREADS 4
+#endif
+
+#ifdef threads_5
+#define NUM_OF_THREADS 5
+#endif
+
+#ifdef threads_6
+#define NUM_OF_THREADS 6
+#endif
+
+void SumInRange(std::vector<fig::Circle>& vctr, int start, int end,
+                int result) noexcept {
+  int answ = 0;
+  for (auto it = vctr.begin() + start; it != vctr.begin() + end; ++it) {
+    answ += it.GetRadius();
+  }
+  muteX.lock();
+  result += answ;
+  muteX.unlock();
+}
 
 int main() {
   std::vector<fig::Helix *> figVctr;
@@ -56,15 +92,24 @@ int main() {
     std::cout << fg->GetVectorPoint(M_PI / 4);
   }
 
-  std::vector<fig::Circle *> circleVctr;
-  for (auto& fig : figVctr) {
-    if (dynamic_cast<fig::Circle*>(fig)) {
-      circleVctr.push_back(dynamic_cast<fig::Circle*>(fig));
+  std::vector<fig::Circle> circleVctr;
+  for (auto &fig : figVctr) {
+    if (dynamic_cast<fig::Circle *>(fig)) {
+      circleVctr.push_back(*(dynamic_cast<fig::Circle *>(fig)));
     }
   }
 
   std::sort(circleVctr.begin(), circleVctr.end());
 
-
-
+  std::vector<std::thread> threadVector;
+  int answ = 0;
+  int step = circleVctr.size() / NUM_OF_THREADS;
+  for (int i = 0; i < NUM_OF_THREADS; ++i) {
+    threadVector.push_back(std::thread(
+        std::ref(SumInRange), circleVctr, step * i, step * (i + 1), std::ref(answ)));
+  }
+  for (auto& threaD : threadVector) {
+    threaD.join();
+  }
+  std::cout<<answ<<std::endl;
 }
