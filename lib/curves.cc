@@ -14,22 +14,35 @@ bool Point::operator==(const Point &other) const {
   float dz = z - other.z;
   return fabs(dx) < EPS && fabs(dy) < EPS && fabs(dz) < EPS;
 }
-
-RoundFig::RoundFig(int xSemi, int ySemi) {
+// ******************************************************************************
+// ******************************************************************************
+Ellipse::Ellipse(float xSemi, float ySemi) {
   if (xSemi <= 0 || ySemi <= 0) {
-    throw "RoundFig:: invalid constructor";
+    throw "Ellipse:: invalid constructor";
   }
   x_semiaxis_ = xSemi;
   y_semiaxis_ = ySemi;
 }
 
-float RoundFig::GetArea() const { return M_PI * x_semiaxis_ * y_semiaxis_; }
+float Ellipse::GetArea() const { return M_PI * x_semiaxis_ * y_semiaxis_; }
 
-Point RoundFig::GetPoint(float angle) const {
-  float newAngle = atan2(x_semiaxis_ * sinf(angle), y_semiaxis_ * cosf(angle));
+Point Ellipse::GetPoint(float angle) const {
+  float newAngle = GetParameter(angle);
   float x = x_semiaxis_ * cosf(newAngle);
   float y = y_semiaxis_ * sinf(newAngle);
   return Point(x, y, 0);
 }
+
+Point Ellipse::GetVectorPoint(float angle) const {
+  float newAngle = GetParameter(angle);
+  float x = x_semiaxis_ * (- sinf(newAngle));
+  float y = y_semiaxis_ * cosf(newAngle);
+  float z = 0;
+  return Point(x, y, z);
+}
+// ******************************************************************************
+// ******************************************************************************
+
+
 
 } // namespace fig

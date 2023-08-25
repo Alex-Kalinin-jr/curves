@@ -14,11 +14,44 @@ TEST(point, a1) {
   ASSERT_EQ(a, b);
 }
 
-TEST(point, a2) {
-  fig::RoundFig a(5, 4);
-  fig::Point b = a.GetPoint(M_PI / 2);
-  fig::Point c(0, 4, 0);
-  ASSERT_EQ(b, c);
+TEST(Ellipse, a2) {
+  fig::Ellipse a(5, 4);
+
+  fig::Point b1 = a.GetPoint(M_PI / 2);
+  fig::Point c1(0, 4, 0);
+  ASSERT_EQ(b1, c1);
+
+  fig::Point b2 = a.GetPoint(M_PI);
+  fig::Point c2(-5, 0, 0);
+  ASSERT_EQ(b2, c2);
+
+  fig::Point b3 = a.GetPoint(3 * M_PI / 2);
+  fig::Point c3(0, -4, 0);
+  ASSERT_EQ(b3, c3);
+
+  fig::Point b4 = a.GetPoint(M_PI / 2);
+  fig::Point c4(0, 4, 0);
+  ASSERT_EQ(b4, c4);
+}
+
+TEST(Circle, a2) {
+  fig::Circle a(5);
+
+  fig::Point b1 = a.GetPoint(M_PI / 2);
+  fig::Point c1(0, 5, 0);
+  ASSERT_EQ(b1, c1);
+
+  fig::Point b2 = a.GetPoint(M_PI);
+  fig::Point c2(-5, 0, 0);
+  ASSERT_EQ(b2, c2);
+
+  fig::Point b3 = a.GetPoint(3 * M_PI / 2);
+  fig::Point c3(0, -5, 0);
+  ASSERT_EQ(b3, c3);
+
+  fig::Point b4 = a.GetPoint(M_PI / 2);
+  fig::Point c4(0, 5, 0);
+  ASSERT_EQ(b4, c4);
 }
 
 int main(int argc, char *argv[]) {
