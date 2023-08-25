@@ -1,29 +1,30 @@
 #include <cmath>
 #include <cstddef>
+#include <iostream>
 
 #define EPS 1e-6
 
 namespace fig {
-// *********************************POINT - GOD OF
-// GODS**************************
-// ******************************************************************************
+//****************************************************************************
+//****************************************************************************
 struct Point {
   Point(float x, float y, float z) : x(x), y(y), z(z) {}
-  bool operator==(const Point &other) const;
   float x;
   float y;
   float z;
+
+  bool operator==(const Point &other) const;
+  bool operator!=(const Point &other) const { return !(*this == other); }
+  friend std::ostream &operator<<(std::ostream &os, const fig::Point &point);
 };
-// *********************************FIGURE -
-// GODFATHER***************************
-// ******************************************************************************
+//****************************************************************************
+//****************************************************************************
 class Figure {
   virtual Point GetPoint(float angle) const = 0;       // angle is in radians
   virtual Point GetVectorPoint(float angle) const = 0; // angle is in radians
 };
-// *********************************ELLIPSE - WE LIKE
-// IT*************************
-// ******************************************************************************
+//****************************************************************************
+//****************************************************************************
 class Helix : public Figure {
 public:
   explicit Helix(float xSemi, float ySemi, float step);
@@ -67,16 +68,13 @@ public:
   bool operator!=(const Circle &other) {
     return ((*this < other) || (*this > other));
   }
-  bool operator==(const Circle &other) {
-    return !(*this != other);
-  }
+  bool operator==(const Circle &other) { return !(*this != other); }
   bool operator<=(const Circle &other) {
     return (*this == other || *this < other);
   }
   bool operator>=(const Circle &other) {
     return (*this == other || *this > other);
   }
-
 };
 
 } // namespace fig

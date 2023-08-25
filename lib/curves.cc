@@ -3,8 +3,14 @@
 #include <cmath>
 #include <cstddef>
 #include <exception>
+#include <iostream>
 
 namespace fig {
+
+std::ostream &operator<<(std::ostream &os, const fig::Point &point) {
+  os << point.x << "; " << point.y << "; " << point.z << ";" << std::endl;
+  return os;
+}
 
 bool Point::operator==(const Point &other) const {
   float dx = x - other.x;
