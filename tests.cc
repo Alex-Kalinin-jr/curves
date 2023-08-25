@@ -7,7 +7,7 @@
 #define EPS 1e-6
 
 TEST(Cell, a1) {
-  fig::Figure a(5, 4);
+  fig::RoundFig a(5, 4);
   ASSERT_EQ(4, 4);
 }
 
