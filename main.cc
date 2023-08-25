@@ -56,16 +56,11 @@ int main() {
     std::cout << fg.GetVectorPoint(M_PI / 4);
   }
 
-  fig::Circle temp(1);
+  fig::Circle* temp = nullptr;
   const std::type_info &neededType = typeid(temp);
 
-  std::vector<std::shared_ptr<fig::Circle>> circleVctr;
-  std::for_each(figVctr.begin(), figVctr.end(),
-                [&neededType, &circleVctr](fig::Helix &fig) mutable {
-                  if (typeid(fig) == neededType) {
-                    // std::shared_ptr<fig::Circle> ptr { std::make_shared<fig::Circle>(fig) };
-                    // circleVctr.push_back(ptr);
-                    std::cout<<"found";
-                  }
-                });
+  std::vector<fig::Circle *> circleVctr;
+  for (auto& fig : figVctr) {
+    std::cout<<(typeid(fig)).name()<<std::endl;
+  }
 }
