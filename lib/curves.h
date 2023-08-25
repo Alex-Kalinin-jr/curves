@@ -1,19 +1,32 @@
+#include <cmath>
 #include <cstddef>
 
 namespace fig {
 
-class Figure {};
+struct Point {
+  Point(float x, float y, float z) : x(x), y(y), z(z) {}
+  bool operator==(const Point &other) const;
+  float x;
+  float y;
+  float z;
+};
+
+class Figure {
+  // in radians
+  virtual Point GetPoint(float angle) const = 0;
+  virtual float GetArea() const = 0;
+};
 
 class RoundFig : public Figure {
 public:
-  RoundFig(int xSemi, int ySemi, int x = 0, int y = 0, int z = 0);
+  RoundFig(int xSemi, int ySemi);
+
+  float GetArea() const;
+  Point GetPoint(float angle) const;
 
 private:
   int x_semiaxis_;
   int y_semiaxis_;
-  int cntr_x_point_;
-  int cntr_y_point_;
-  int cntr_z_point_;
 };
 
 } // namespace fig
