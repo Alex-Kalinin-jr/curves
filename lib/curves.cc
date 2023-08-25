@@ -35,13 +35,27 @@ Point Ellipse::GetPoint(float angle) const {
 
 Point Ellipse::GetVectorPoint(float angle) const {
   float newAngle = GetParameter(angle);
-  float x = x_semiaxis_ * (- sinf(newAngle));
+  float x = x_semiaxis_ * (-sinf(newAngle));
   float y = y_semiaxis_ * cosf(newAngle);
   float z = 0;
   return Point(x, y, z);
 }
 // ******************************************************************************
 // ******************************************************************************
+
+Point Helix::GetPoint(float angle) const { 
+  Point buffPoint(Ellipse::GetPoint(angle)); 
+  buffPoint.z = z_step_ * angle;
+  return buffPoint;
+}
+
+Point Helix::GetVectorPoint(float angle) const {
+  Point buffPoint(Ellipse::GetVectorPoint(angle));
+  buffPoint.z = 0;
+  return buffPoint;
+}
+
+
 
 
 

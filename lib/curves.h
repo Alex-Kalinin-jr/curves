@@ -14,7 +14,7 @@ struct Point {
 // ******************************************************************************
 class Figure {
   virtual float GetArea() const = 0;
-  virtual Point GetPoint(float angle) const = 0;   // angle is in radians
+  virtual Point GetPoint(float angle) const = 0;       // angle is in radians
   virtual Point GetVectorPoint(float angle) const = 0; // angle is in radians
 };
 // ******************************************************************************
@@ -38,12 +38,25 @@ private:
 // ******************************************************************************
 // ******************************************************************************
 class Circle : public Ellipse {
-  public:
+public:
   Circle(float rad) : Ellipse(rad, rad) {}
-  Point GetPoint(float angle) const {return Ellipse::GetPoint(angle);}
-  Point GetVectorPoint(float angle) const {return Ellipse::GetVectorPoint(angle);}
-
+  Point GetPoint(float angle) const { return Ellipse::GetPoint(angle); }
+  Point GetVectorPoint(float angle) const {
+    return Ellipse::GetVectorPoint(angle);
+  }
 };
 
+// ******************************************************************************
+// ******************************************************************************
+class Helix : public Ellipse {
+public:
+  explicit Helix(float rad, float step) : Ellipse(rad, rad) {
+    z_step_ = step / (2 * M_PI);
+  }
+  Point GetPoint(float angle) const;
+  Point GetVectorPoint(float angle) const;
+private:
+  float z_step_;
+};
 
 } // namespace fig
