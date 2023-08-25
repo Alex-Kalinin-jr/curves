@@ -73,7 +73,6 @@ TEST(Helix, a1) {
   // ASSERT_EQ(b4, c4);
 }
 
-
 int main(int argc, char *argv[]) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

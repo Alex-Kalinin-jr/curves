@@ -1,8 +1,12 @@
 #include <cmath>
 #include <cstddef>
 
-namespace fig {
+#define EPS 1e-6
 
+namespace fig {
+// *********************************POINT - GOD OF
+// GODS**************************
+// ******************************************************************************
 struct Point {
   Point(float x, float y, float z) : x(x), y(y), z(z) {}
   bool operator==(const Point &other) const;
@@ -10,14 +14,16 @@ struct Point {
   float y;
   float z;
 };
-// ******************************************************************************
+// *********************************FIGURE -
+// GODFATHER***************************
 // ******************************************************************************
 class Figure {
   virtual float GetArea() const = 0;
   virtual Point GetPoint(float angle) const = 0;       // angle is in radians
   virtual Point GetVectorPoint(float angle) const = 0; // angle is in radians
 };
-// ******************************************************************************
+// *********************************ELLIPSE - WE LIKE
+// IT*************************
 // ******************************************************************************
 class Ellipse : public Figure {
 public:
@@ -27,7 +33,7 @@ public:
   Point GetPoint(float angle) const;
   Point GetVectorPoint(float angle) const;
 
-private:
+protected:
   float x_semiaxis_;
   float y_semiaxis_;
 
@@ -44,6 +50,25 @@ public:
   Point GetVectorPoint(float angle) const {
     return Ellipse::GetVectorPoint(angle);
   }
+  bool operator<(const Circle &other) {
+    return (x_semiaxis_ < other.x_semiaxis_);
+  }
+  bool operator>(const Circle &other) {
+    return (x_semiaxis_ < other.x_semiaxis_);
+  }
+  bool operator!=(const Circle &other) {
+    return ((*this < other) || (*this > other));
+  }
+  bool operator==(const Circle &other) {
+    return !(*this != other);
+  }
+  bool operator<=(const Circle &other) {
+    return (*this == other || *this < other);
+  }
+  bool operator>=(const Circle &other) {
+    return (*this == other || *this > other);
+  }
+
 };
 
 // ******************************************************************************
@@ -55,6 +80,7 @@ public:
   }
   Point GetPoint(float angle) const;
   Point GetVectorPoint(float angle) const;
+
 private:
   float z_step_;
 };

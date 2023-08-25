@@ -4,8 +4,6 @@
 #include <cstddef>
 #include <exception>
 
-#define EPS 1e-6
-
 namespace fig {
 
 bool Point::operator==(const Point &other) const {
@@ -40,11 +38,12 @@ Point Ellipse::GetVectorPoint(float angle) const {
   float z = 0;
   return Point(x, y, z);
 }
+
 // ******************************************************************************
 // ******************************************************************************
 
-Point Helix::GetPoint(float angle) const { 
-  Point buffPoint(Ellipse::GetPoint(angle)); 
+Point Helix::GetPoint(float angle) const {
+  Point buffPoint(Ellipse::GetPoint(angle));
   buffPoint.z = z_step_ * angle;
   return buffPoint;
 }
@@ -54,9 +53,5 @@ Point Helix::GetVectorPoint(float angle) const {
   buffPoint.z = 0;
   return buffPoint;
 }
-
-
-
-
 
 } // namespace fig
