@@ -4,7 +4,10 @@
 
 #define EPS 1e-6
 
+
 namespace fig {
+
+enum class Type {kCircle, kEllipse, kHelix};
 //****************************************************************************
 //****************************************************************************
 struct Point {
@@ -12,7 +15,6 @@ struct Point {
   float x;
   float y;
   float z;
-
   bool operator==(const Point &other) const;
   bool operator!=(const Point &other) const { return !(*this == other); }
   friend std::ostream &operator<<(std::ostream &os, const fig::Point &point);
