@@ -89,7 +89,6 @@ int main() {
   for (auto &threaD : threadVector) {
     threaD.join();
   }
-  std::cout << answ << std::endl;
 #endif
 
 #ifndef NUM_OF_THREADS
