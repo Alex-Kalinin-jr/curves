@@ -42,7 +42,7 @@ Point Helix::GetVectorPoint(float angle) const {
   float newAngle = GetParameter(angle);
   float x = x_semiaxis_ * (-sinf(newAngle));
   float y = y_semiaxis_ * cosf(newAngle);
-  float z = z_step_ * angle;
+  float z = z_step_;
   return Point(x, y, z);
 }
 // ******************************************************************************
