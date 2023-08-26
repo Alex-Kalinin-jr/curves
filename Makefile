@@ -2,7 +2,7 @@ export LD_LIBRARY_PATH=.
 NUM=2 #num of threads
 
 install: curves
-	g++ main.cc libcurves.so -DNUM_OF_THREADS=$(NUM) -lpthread  
+	g++ -std=c++17 main.cc libcurves.so -DNUM_OF_THREADS=$(NUM) -lpthread  
 	./a.out
 
 curves:
