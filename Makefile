@@ -1,5 +1,5 @@
 export LD_LIBRARY_PATH=.
-NUM=2
+NUM=2 #num of threads
 
 install: curves
 	g++ main.cc libcurves.so -DNUM_OF_THREADS=$(NUM) -lpthread  
@@ -13,12 +13,8 @@ test: clean
 	./test
 	
 clean:
-	rm -f test
-
-leaks:
-	g++ -o test_file model/s21_maze.cc -g model/main_leaks.cc
-	valgrind --log-file="v_report" --tool=memcheck --track-origins=yes -v ./test_file
+	rm -f test a.out libcurves.so
 
 style:
-		-@clang-format -style=file -i *'.cpp' *'.hpp' *'.h' model/*'.cpp' \
+	-@clang-format -style=file -i *'.cpp' *'.hpp' *'.h' lib/*'.cpp' \
 lib/*'.cc' lib/*'.h' lib/*'.hpp' *'.cc'
