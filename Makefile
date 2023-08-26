@@ -1,5 +1,9 @@
+export LD_LIBRARY_PATH=.
+NUM=2
+
 install: curves
-	g++ main.cc -Lcurves -DNUM_OF_THREADS=2 -lpthread
+	g++ main.cc libcurves.so -DNUM_OF_THREADS=$(NUM) -lpthread  
+	./a.out
 
 curves:
 	g++ -shared -fPIC -o libcurves.so lib/curves.cc
