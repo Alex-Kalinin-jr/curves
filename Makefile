@@ -1,5 +1,8 @@
+curves:
+	g++ -shared -fPIC -o lib/libcurves.so lib/curves.cc
+
 test: clean
-	g++ -o test lib/curves.cc tests.cc -g -lgtest -lm -lrt -lpthread -lsubunit
+	g++ -o test lib/curves.cc tests.cc -g -lgtest -lm -lrt -lpthread -lsubunit 
 	./test
 	
 clean:
