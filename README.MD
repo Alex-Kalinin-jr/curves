@@ -19,4 +19,4 @@ The implementation:
 - All curves are parametrically defined.
 - Circle is planar in the plane XoY (i.e. all Z-coordinates are 0) and is defined by its radius.
 - Ellipse is planar in the plane XoY and is defined by its two radii, along X and Y axes.
-- Helix is spatial and is defined by its radius and step.
+- Helix is spatial and is defined by its ***semiaxises*** and step.
