@@ -26,25 +26,26 @@ class Figure {
 class Helix : public Figure {
 public:
   explicit Helix(float xSemi, float ySemi, float step);
-  Point GetPoint(float angle) const;
-  Point GetVectorPoint(float angle) const;
+  Point GetPoint(float angle) const override;
+  Point GetVectorPoint(float angle) const override;
 
 protected:
-  float x_semiaxis_;
-  float y_semiaxis_;
-  float z_step_;
+  float semi_x_;
+  float semi_y_;
+  float step_z_;
 
   inline float GetParameter(float angle) const {
-    return atan2(x_semiaxis_ * sinf(angle), y_semiaxis_ * cosf(angle));
+    return atan2(semi_x_ * sinf(angle), semi_y_ * cosf(angle));
   }
 };
-
+//****************************************************************************
+//****************************************************************************
 class Ellipse : public Helix {
 public:
   Ellipse(float xSemi, float ySemi) : Helix(xSemi, ySemi, 0) {}
 
-  Point GetPoint(float angle) const { return Helix::GetPoint(angle); };
-  Point GetVectorPoint(float angle) const {
+  Point GetPoint(float angle) const override { return Helix::GetPoint(angle); };
+  Point GetVectorPoint(float angle) const override {
     return Helix::GetVectorPoint(angle);
   }
 };
@@ -53,12 +54,9 @@ public:
 class Circle : public Ellipse {
 public:
   Circle(float rad) : Ellipse(rad, rad) {}
-  bool operator<(const Circle &other) {
-    return (x_semiaxis_ < other.x_semiaxis_);
-  }
-  bool operator>(const Circle &other) {
-    return (x_semiaxis_ > other.x_semiaxis_);
-  }
+
+  bool operator<(const Circle &other) { return (semi_x_ < other.semi_x_); }
+  bool operator>(const Circle &other) { return (semi_x_ > other.semi_x_); }
   bool operator!=(const Circle &other) {
     return ((*this < other) || (*this > other));
   }
@@ -70,9 +68,11 @@ public:
     return (*this == other || *this > other);
   }
 
-  inline float GetRadius() { return x_semiaxis_; }
-  Point GetPoint(float angle) const { return Ellipse::GetPoint(angle); }
-  Point GetVectorPoint(float angle) const {
+  inline float GetRadius() { return semi_x_; }
+  Point GetPoint(float angle) const override {
+    return Ellipse::GetPoint(angle);
+  }
+  Point GetVectorPoint(float angle) const override {
     return Ellipse::GetVectorPoint(angle);
   }
 };

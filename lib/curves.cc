@@ -25,24 +25,24 @@ Helix::Helix(float xSemi, float ySemi, float step) {
   if (xSemi <= 0 || ySemi <= 0 || step < 0) {
     throw "Ellipse:: invalid constructor";
   }
-  x_semiaxis_ = xSemi;
-  y_semiaxis_ = ySemi;
-  z_step_ = step / (2 * M_PI);
+  semi_x_ = xSemi;
+  semi_y_ = ySemi;
+  step_z_ = step / (2 * M_PI);
 }
 
 Point Helix::GetPoint(float angle) const {
   float newAngle = GetParameter(angle);
-  float x = x_semiaxis_ * cosf(newAngle);
-  float y = y_semiaxis_ * sinf(newAngle);
-  float z = z_step_ * angle;
+  float x = semi_x_ * cosf(newAngle);
+  float y = semi_y_ * sinf(newAngle);
+  float z = step_z_ * angle;
   return Point(x, y, z);
 }
 
 Point Helix::GetVectorPoint(float angle) const {
   float newAngle = GetParameter(angle);
-  float x = x_semiaxis_ * (-sinf(newAngle));
-  float y = y_semiaxis_ * cosf(newAngle);
-  float z = z_step_;
+  float x = semi_x_ * (-sinf(newAngle));
+  float y = semi_y_ * cosf(newAngle);
+  float z = step_z_;
   return Point(x, y, z);
 }
 // ******************************************************************************
