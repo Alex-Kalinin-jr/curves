@@ -1,5 +1,8 @@
+install: curves
+	g++ main.cc -Lcurves -DNUM_OF_THREADS=2 -lpthread
+
 curves:
-	g++ -shared -fPIC -o lib/libcurves.so lib/curves.cc
+	g++ -shared -fPIC -o libcurves.so lib/curves.cc
 
 test: clean
 	g++ -o test lib/curves.cc tests.cc -g -lgtest -lm -lrt -lpthread -lsubunit 
