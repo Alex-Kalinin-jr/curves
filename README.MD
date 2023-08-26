@@ -6,7 +6,7 @@ The main function:
 3. Populates a second container that would contain only circles from the first container via pointers.
 4. Sorts the second container in the ascending order of circles’ radii. That is, the first element has the
 smallest radius, the last - the greatest.
-5. Computes the total sum of radii of all curves in the second container using multithreading. Num of threads is defined in NUM variable of Makefile.
+5. Computes the total sum of radii of all curves in the second container using multithreading. ***Num of threads is defined in NUM variable of Makefile.***
 
 The implementation:
 1. Uses virtual methods.
